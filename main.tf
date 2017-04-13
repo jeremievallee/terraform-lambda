@@ -71,11 +71,11 @@ resource "aws_iam_role_policy_attachment" "basic-exec-role" {
 }
 
 # AWS Lambda function
-resource "aws_lambda_function" "check_log_export_lambda" {
-    filename = "check_log_export_lambda.zip"
-    function_name = "check_log_export_lambda"
-    role = "${aws_iam_role.check_log_export_lambda.arn}"
-    handler = "check_log_export_lambda.handler"
+resource "aws_lambda_function" "check_file_lambda" {
+    filename = "check_file_lambda.zip"
+    function_name = "check_file_lambda"
+    role = "${aws_iam_role.check_file_lambda.arn}"
+    handler = "check_file_lambda.handler"
     runtime = "python2.7"
     timeout = 10
     kms_key_arn = ""
@@ -84,13 +84,13 @@ resource "aws_lambda_function" "check_log_export_lambda" {
         SLACK_API_TOKEN = ""
       }
     }
-    source_code_hash = "${base64sha256(file("check_log_export_lambda.zip"))}"
+    source_code_hash = "${base64sha256(file("check_file_lambda.zip"))}"
 }
 
-resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_log_export" {
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_check_file" {
     statement_id = "AllowExecutionFromCloudWatch"
     action = "lambda:InvokeFunction"
-    function_name = "${aws_lambda_function.check_log_export_lambda.function_name}"
+    function_name = "${aws_lambda_function.check_file_lambda.function_name}"
     principal = "events.amazonaws.com"
-    source_arn = "${aws_cloudwatch_event_rule.check-log-export.arn}"
+    source_arn = "${aws_cloudwatch_event_rule.check-file-event.arn}"
 }
