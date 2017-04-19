@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Get Environment Variables
+# Get Virtualenv Directory Path
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 if [ -z "$VIRTUAL_ENV_DIR" ]; then
     VIRTUAL_ENV_DIR="$SCRIPT_DIR/venv"
