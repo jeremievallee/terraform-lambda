@@ -78,7 +78,6 @@ resource "aws_lambda_function" "check_file_lambda" {
     handler = "check_file_lambda.handler"
     runtime = "python2.7"
     timeout = 10
-    kms_key_arn = ""
     source_code_hash = "${base64sha256(file("check_file_lambda.zip"))}"
 }
 
