@@ -79,11 +79,6 @@ resource "aws_lambda_function" "check_file_lambda" {
     runtime = "python2.7"
     timeout = 10
     kms_key_arn = ""
-    environment {
-      variables = {
-        SLACK_API_TOKEN = ""
-      }
-    }
     source_code_hash = "${base64sha256(file("check_file_lambda.zip"))}"
 }
 
